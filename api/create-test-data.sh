@@ -14,6 +14,15 @@ echo '  "name": "'$PROJ_NAME'",' >> $OUTFILE
 echo '  "receivers": [' >> $OUTFILE
 
 for i in $(seq 1 $NR_ENTRIES); do
+  # as first address, set 0xaaaa376498c404044723c532458d68552763c860
+  # its pk is f9d8916ae9e8b4e2c97a32166ee113658905fb7d92499b0faae838a8827cacc9
+  if [ $i -eq 1 ]; then
+    address="0xaaaa376498c404044723c532458d68552763c860"
+    amount=10000000
+    echo "  [ \"$address\", \"$amount\" ]," >> $OUTFILE
+    continue
+  fi
+
   # Generate random Ethereum address (20 bytes hex)
   address="0x$(openssl rand -hex 20)"
 

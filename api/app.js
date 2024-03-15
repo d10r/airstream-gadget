@@ -1,9 +1,11 @@
 import fs from "fs";
-import express from 'express';
-import bodyParser from 'body-parser';
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
 import { StandardMerkleTree } from "@openzeppelin/merkle-tree";
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
 // Logic
@@ -61,10 +63,10 @@ app.post('/create-proj', (req, res) => {
     const { name, logo, receivers } = req.body;
     try {
         const merkleRoot = createProj(name, logo, receivers);
-        res.status(200).send({ merkleRoot });
+        res.status(200).json({ merkleRoot });
     } catch (e) {
         console.log(`Error: ${e}`);
-        res.status(500).send({error: e.message});
+        res.status(500).json({error: e.message});
     }
 });
 
@@ -72,10 +74,10 @@ app.get('/projects/:name/gen-proof/:addr', (req, res) => {
     const { name, addr } = req.params;
     try {
         const proof = genProof(name, addr);
-        res.status(200).send(proof);
+        res.status(200).json(proof);
     } catch (e) {
         console.log(`Error: ${e}`);
-        res.status(500).send({error: e.message});
+        res.status(500).json({error: e.message});
     }
 });
 

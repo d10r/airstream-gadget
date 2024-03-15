@@ -32,6 +32,8 @@ In order to generate a proof for an account
 ```
 curl http://localhost:3000/projects/test/gen-proof/$(cat testprojspec.json | jq -r ".receivers[0][0]")
 ```
+This creates a proof for the first account in the receivers list.
+This entry happens to be an account we have the OK for (see create script), so it can be used for testing claim() in the contract.
 
 Example return data of gen-proof:
 ```
@@ -51,4 +53,9 @@ forge install
 Run the test with
 ```
 forge test
+```
+
+Deploy the factory to optimism-sepolia:
+```
+./deploy.sh optimism-sepolia MerkleStreamDistributorFactory
 ```

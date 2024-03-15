@@ -18,9 +18,10 @@ function getTree(projName) {
 }
 
 // Persists project data including a merkle tree derived from the receivers array
+// returns the merkle tree root
 // TODO: what if the project already exists?
 // TODO: handle logo
-// TODO: sanitize data
+// TODO: sanitize data: receivers, normalize addresses (lowercase?) and deny duplicates
 function createProj(name, logo, receivers) {
     if (name === undefined) throw new Error('name is required');
     if (name === "") throw new Error('name cannot be empty');
@@ -30,11 +31,12 @@ function createProj(name, logo, receivers) {
     console.log(`Creating project ${name} with logo ${logo} and receivers ${receivers}`);
 
     // Create the merkle tree
-    const tree = StandardMerkleTree.of(receivers, ["address", "uint256"]);
+    const tree = StandardMerkleTree.of(receivers, ["address", "uint128"]);
     console.log('Merkle Root:', tree.root);
 
     // Persist the merkle tree with project scoped filename
     fs.writeFileSync(getTreeFileName(name), JSON.stringify(tree.dump()));
+    return tree.root;
 }
 
 // returns a proof or throws
@@ -58,8 +60,8 @@ function genProof(projName, addr) {
 app.post('/create-proj', (req, res) => {
     const { name, logo, receivers } = req.body;
     try {
-        createProj(name, logo, receivers);
-        res.status(200).send('OK');
+        const merkleRoot = createProj(name, logo, receivers);
+        res.status(200).send({ merkleRoot });
     } catch (e) {
         console.log(`Error: ${e}`);
         res.status(500).send({error: e.message});

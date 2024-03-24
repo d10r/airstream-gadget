@@ -59,3 +59,7 @@ Deploy the factory to optimism-sepolia:
 ```
 ./deploy.sh optimism-sepolia MerkleStreamDistributorFactory
 ```
+
+## Deployments
+
+Factory on optimism-sepolia: 0xeBdFC258ED54c62e770a0F932C0324676a7a3FDB

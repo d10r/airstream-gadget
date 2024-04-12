@@ -30,7 +30,7 @@ for i in $(seq 1 $NR_ENTRIES); do
   amount=$(shuf -i 10000-10000000 -n 1)
 
   # Format as JSON and append to file, with a comma except for the last entry
-  if [ $i -lt 1000 ]; then
+  if [ $i -lt $NR_ENTRIES ]; then
     echo "  [ \"$address\", \"$amount\" ]," >> $OUTFILE
   else
     echo "  [ \"$address\", \"$amount\" ]" >> $OUTFILE

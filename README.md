@@ -1,4 +1,4 @@
-# Airstream Gadget
+# Merkle Gadget
 
 ## API
 
@@ -21,7 +21,7 @@ In order to test, first generate test data
 ./create-test-data.sh
 ```
 
-This will create a file `testprojspec.json` containing a randomly generated list of receivers and unit amounts.
+This will create a file `testprojspec.json` containing a randomly generated list of receivers (index, address, amount).
 
 Now you can create a project via API using that data with
 ```
@@ -57,9 +57,9 @@ forge test
 
 Deploy the factory to optimism-sepolia:
 ```
-./deploy.sh optimism-sepolia MerkleStreamDistributorFactory
+./deploy.sh optimism-sepolia MerkleDistributorFactory
 ```
 
 ## Deployments
 
-Factory on optimism-sepolia: 0xeBdFC258ED54c62e770a0F932C0324676a7a3FDB
+optimism-sepolia: [0xF8D337aebB70E427f5903E0A8d9991291124D947](https://sepolia-optimism.etherscan.io/address/0xf8d337aebb70e427f5903e0a8d9991291124d947)

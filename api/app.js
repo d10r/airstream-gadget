@@ -33,7 +33,7 @@ function createProj(name, logo, receivers) {
     console.log(`Creating project ${name} with logo ${logo} and receivers ${receivers}`);
 
     // Create the merkle tree
-    const tree = StandardMerkleTree.of(receivers, ["address", "uint128"]);
+    const tree = StandardMerkleTree.of(receivers, ["uint256", "address", "uint256"]);
     console.log('Merkle Root:', tree.root);
 
     // Persist the merkle tree with project scoped filename
@@ -46,7 +46,7 @@ function genProof(projName, addr) {
     const tree = getTree(projName);
     console.log(`Generating proof for project ${projName}, address ${addr}`);
     for (const [i, v] of tree.entries()) {
-        if (v[0] === addr) {
+        if (v[1].toLowerCase() === addr.toLowerCase()) {
             const proof = tree.getProof(i);
             return {
                 value: v,
